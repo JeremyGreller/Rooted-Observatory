@@ -1,0 +1,308 @@
+# INVARIANTS.md
+
+**Project:** Rooted Observatory
+
+**Status:** Constitutional Specification — Legally and Technically Binding
+
+**Version:** V3.0 (Attempt 3)
+
+**Effective Date:** 2026-01-30
+
+---
+
+## 0. Preamble
+
+This document defines the **non-negotiable boundaries, axioms, and forbidden behaviors** of the Rooted Observatory system (“Rooted”).
+
+Rooted is a **strictly observational, non-agentic, non-decision-making system** whose sole function is to:
+
+* Accept human-provided input
+* Transmit that input to one or more AI models
+* Receive AI-provided output (including cognitive trace, if provided, and final response)
+* Display that output for human inspection
+* Store that output in immutable, append-only records
+* Export those records for compliance, audit, and evidentiary purposes
+
+Any behavior outside this scope constitutes a **violation of Rooted’s identity** and invalidates claims of non-agency, neutrality, and compliance safety.
+
+---
+
+## 1. Formal Definitions
+
+For the purposes of this system and all associated documentation:
+
+* **Human Input:** Any text, file, or structured data explicitly provided by a human user through an approved interface.
+* **AI Model:** Any external or local system capable of generating output from input prompts.
+* **Cognitive Trace:** Any reasoning, chain-of-thought, internal state representation, or explanatory artifact returned by an AI model.
+* **Final Response:** The AI model’s primary output intended for human consumption.
+* **Record:** An immutable bundle consisting of Human Input, Model Identifier, Timestamp, Cognitive Trace (if provided), Final Response, and Source Metadata.
+* **Descriptive Analytics:** Mathematical operations limited to counting, grouping, and time-series aggregation that do not imply judgment, preference, or recommendation.
+* **Agency:** The capacity of a system to set goals, make decisions, optimize outcomes, learn from prior state, or influence future behavior of itself or another system.
+
+---
+
+## 2. System Axioms
+
+These axioms must hold at all times, in all deployments, and across all versions.
+
+### AXIOM 1 — Non-Agency
+
+Rooted shall not:
+
+* Set goals
+* Make decisions
+* Optimize outcomes
+* Learn from prior records
+* Adapt behavior
+* Influence AI models
+* Influence human users
+
+Rooted is a **recording instrument**, not an actor.
+
+---
+
+### AXIOM 2 — Unidirectional Flow
+
+All system data flow shall be strictly one-way:
+
+```
+Human → Rooted → AI Model → Rooted → Human / Storage / Export
+```
+
+No module, process, or output downstream of the AI Model may influence:
+
+* Future prompts
+* Model selection
+* Configuration values
+* Routing logic
+
+---
+
+### AXIOM 3 — Immutability of Record
+
+Once a Record is written to persistent storage, it shall not be:
+
+* Modified
+* Overwritten
+* Reordered
+* Selectively hidden
+
+Permitted exception:
+
+* Policy-based pruning (time or size limits) that removes entire Records without altering surviving Records.
+
+---
+
+### AXIOM 4 — Transparency of Capture
+
+All AI-provided output must be stored and displayed in **raw, unfiltered form**, including:
+
+* Cognitive Trace (if provided)
+* Final Response
+
+No redaction, summarization, normalization, or interpretation may occur at capture time.
+
+---
+
+### AXIOM 5 — Configuration is Declarative
+
+Configuration files may only:
+
+* Declare endpoints
+* Declare paths
+* Declare limits
+* Declare display options
+
+They may not:
+
+* Contain decision logic
+* Alter system behavior based on data content
+* Enable conditional routing
+
+---
+
+## 3. Forbidden Classes of Behavior
+
+The following are categorically prohibited across all modules and extensions:
+
+### 3.1 Feedback Mechanisms
+
+* Feeding stored records into prompts
+* Using past outputs to alter future inputs
+* Using analytics to select models
+
+### 3.2 Decision Logic
+
+* Scoring outputs
+* Ranking models
+* Choosing “best” responses
+* Filtering “bad” responses
+
+### 3.3 Learning and State
+
+* Persisting preferences
+* Maintaining session memory that affects behavior
+* Adapting configuration based on usage
+
+### 3.4 Automation and Actuation
+
+* Triggering external systems
+* Sending alerts that cause action
+* Enforcing policies
+* Blocking or modifying user input
+
+### 3.5 Interpretation
+
+* Summarizing meaning
+* Assessing quality
+* Labeling risk
+* Generating recommendations
+
+---
+
+## 4. Trust Domains and Import Boundaries
+
+Rooted is divided into three isolated trust domains:
+
+### 4.1 Ingest Domain
+
+Files:
+
+* `ui.py`
+* `app.py`
+
+Authority:
+
+* Accept human input
+* Forward input to AI Boundary
+
+Restrictions:
+
+* May not access storage directly
+* May not perform analytics
+* May not modify AI output
+
+---
+
+### 4.2 AI Boundary Domain
+
+Files:
+
+* `ai_gateway.py`
+
+Authority:
+
+* Transmit input to AI models
+* Receive raw output
+
+Restrictions:
+
+* May not store data
+* May not track state
+* May not select or rank models dynamically
+
+---
+
+### 4.3 Record Domain
+
+Files:
+
+* `storage.py`
+* `dashboard.py`
+* `reporting.py`
+
+Authority:
+
+* Persist records
+* Display records
+* Export records
+* Generate descriptive statistics
+
+Restrictions:
+
+* May not influence ingest or AI boundary
+* May not trigger actions
+* May not alter records
+
+---
+
+## 5. Module Compliance Table
+
+| Module        | Allowed Capabilities              | Explicitly Forbidden                      |
+| ------------- | --------------------------------- | ----------------------------------------- |
+| config.py     | Declare values                    | Logic, conditionals, decisions            |
+| ai_gateway.py | Send/receive raw AI data          | Filtering, ranking, memory, state         |
+| app.py        | Route data                        | Interpretation, branching on meaning      |
+| viewer.py     | Display data                      | Commentary, scoring, recommendations      |
+| storage.py    | Append records                    | Query logic, mutation, selective deletion |
+| dashboard.py  | Count, group, time-series         | Evaluation, alerts, automation            |
+| reporting.py  | Export raw data                   | Executive summaries, risk analysis        |
+| ui.py         | Input/output interface            | Direct AI access, data processing         |
+| utils.py      | Formatting and validation helpers | System control, logic authority           |
+| run.py        | Environment setup                 | Behavior modification                     |
+
+---
+
+## 6. Data Classification
+
+### 6.1 Cognitive Trace Sensitivity
+
+All Cognitive Trace fields shall be tagged as:
+
+```
+CLASSIFICATION: TRACE_CONFIDENTIAL
+```
+
+Rules:
+
+* May be stored
+* May be displayed
+* May be exported
+
+But:
+
+* May only be redacted at **export time**, never at storage time
+
+---
+
+## 7. Tamper Evidence (Optional but Recommended)
+
+Implementations may include:
+
+* Hash chaining between successive Records
+* Periodic external anchoring of root hashes
+
+These mechanisms must:
+
+* Detect modification
+* Not prevent lawful pruning
+
+---
+
+## 8. Change Control
+
+Any change to this file requires:
+
+* Version increment
+* Human approval
+* Recorded rationale
+
+No automated process may modify INVARIANTS.md.
+
+---
+
+## 9. Audit Attestation
+
+All deployments of Rooted shall be able to assert:
+
+> “This system conforms to INVARIANTS.md Version V3.0, and no deployed module violates the axioms or forbidden behaviors defined herein.”
+
+---
+
+## 10. Final Invariant
+
+> If Rooted ever influences AI behavior, user behavior, or system outcomes, it ceases to be Rooted.
+
+---
+
+**End of INVARIANTS.md**
