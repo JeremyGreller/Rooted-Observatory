@@ -1,19 +1,9 @@
-Rooted Observatory
+Rooted Observatory: The Passive Integrity Layer for AI Output
 
-Rooted Observatory is a Passive Integrity Layer for AI system interactions that records structured, verifiable logs of model usage across multiple AI providers (ChatGPT, Claude, Gemini).
+Rooted Observatory is a Passive Integrity Layer designed to provide a tamper-evident, cryptographically verifiable record of AI system interactions. It functions as a high-fidelity “flight recorder” for AI outputs, capturing the verbatim exchange between humans and models to ensure that original intent and responses remain auditable and resistant to undetected modification. By focusing on cryptographic integrity rather than automated interpretation, Rooted Observatory provides a reliable evidence layer for human-led governance in regulated environments.
 
-It captures each interaction as an append-only event record, including:
+The core function of Rooted Observatory is the Zero-Interpretive Record. Unlike traditional logging systems that summarize or reformat data, Rooted preserves the exact “Human Input” and “AI Response” as they occurred. Each observation is assigned a unique identifier and a Storage Hash (e.g., SHA-256), enabling integrity verification and detection of any post-hoc changes. This ensures that stored records can be validated against their original state, eliminating ambiguity introduced by transformation or reinterpretation.
 
-user input
-model response
-model identifier
-timestamp
-API response metadata
+Rooted Observatory operates on a Passive-Active model. The system itself is passive; it does not evaluate model behavior, automate compliance decisions, or issue regulatory judgments. Instead, it is active through human governance. It provides compliance officers, legal teams, and risk managers with a transparent interface for observing AI behavior in real time. This design ensures that the “Duty of Care” remains with human operators.
 
-Each event is sealed with a SHA-256 storage hash, enabling verification that the recorded log has not been altered after creation.
-
-Rooted Observatory is a Zero-Interpretive Record system: it does not summarize, rewrite, or evaluate outputs. It preserves AI interactions exactly as they occur.
-
-The system is passive by design. It does not modify model behavior or make compliance decisions. Instead, it provides a structured, human-governed audit layer for observing and reconstructing AI activity across systems.
-
-Rooted Observatory enables a verifiable interaction trail for AI usage in environments where traceability, consistency, and auditability are required.
+By integrating Rooted Observatory, AI systems can provide enterprises with a verifiable interaction trail, contingent on trusted storage and/or external anchoring. This trail includes key metadata such as model identifiers, timestamps, request parameters, and response data, enabling precise reconstruction of any AI interaction. Rooted Observatory establishes an infrastructure of technical truth, allowing organizations to adopt AI systems with confidence that every recorded output can be validated for integrity.
