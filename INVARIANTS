@@ -235,10 +235,7 @@ Restrictions:
 | app.py        | Route data                        | Interpretation, branching on meaning      |
 | viewer.py     | Display data                      | Commentary, scoring, recommendations      |
 | storage.py    | Append records                    | Query logic, mutation, selective deletion |
-| dashboard.py  | Count, group, time-series         | Evaluation, alerts, automation            |
-| reporting.py  | Export raw data                   | Executive summaries, risk analysis        |
 | ui.py         | Input/output interface            | Direct AI access, data processing         |
-| utils.py      | Formatting and validation helpers | System control, logic authority           |
 | run.py        | Environment setup                 | Behavior modification                     |
 
 ---
